@@ -2,25 +2,67 @@
 {
     partial class HelpForm_KhrapkoDD
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null)) components.Dispose();
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
             base.Dispose(disposing);
         }
-        #region
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1.Text = "Используйте кнопки для управления данными.";
-            this.button1.Text = "OK";
-            this.button1.Click += (s, e) => Close();
-            this.Controls.AddRange(new Control[] { this.label1, this.button1 });
-            this.Text = "Справка";
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HelpForm_KhrapkoDD));
+            label1 = new Label();
+            button1 = new Button();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            resources.ApplyResources(label1, "label1");
+            label1.Name = "label1";
+            // 
+            // button1
+            // 
+            resources.ApplyResources(button1, "button1");
+            button1.Name = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // HelpForm_KhrapkoDD
+            // 
+            AutoScaleMode = AutoScaleMode.None;
+            resources.ApplyResources(this, "$this");
+            Controls.Add(button1);
+            Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "HelpForm_KhrapkoDD";
+            
+            ResumeLayout(false);
+            PerformLayout();
         }
+
         #endregion
+
+        private Label label1;
+        private Button button1;
     }
 }

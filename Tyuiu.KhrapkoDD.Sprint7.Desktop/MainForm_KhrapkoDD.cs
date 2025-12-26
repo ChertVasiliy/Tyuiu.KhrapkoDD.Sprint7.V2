@@ -113,5 +113,10 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e) => new AboutForm_KhrapkoDD().ShowDialog();
         private void руководствоПользователяToolStripMenuItem_Click(object sender, EventArgs e) => new HelpForm_KhrapkoDD().ShowDialog();
         private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Close();
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
