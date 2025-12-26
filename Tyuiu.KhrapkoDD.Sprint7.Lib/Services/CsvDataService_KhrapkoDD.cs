@@ -1,55 +1,76 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using Tyuiu.KhrapkoDD.Sprint7.Lib.Model;
 using Tyuiu.KhrapkoDD.Sprint7.Lib.Models;
 
 namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Services
 {
     public class CsvDataService_KhrapkoDD
     {
-        private readonly string _pcsPath;
-        private readonly string _retailersPath;
+        private readonly string _pcFile;
+        private readonly string _retailerFile;
 
-        public CsvDataService_KhrapkoDD(string dataFolder)
+        public CsvDataService_KhrapkoDD(string pcFile, string retailerFile)
         {
-            _pcsPath = Path.Combine(dataFolder, "pcs_KhrapkoDD.csv");
-            _retailersPath = Path.Combine(dataFolder, "retailers_KhrapkoDD.csv");
+            _pcFile = pcFile;
+            _retailerFile = retailerFile;
+            EnsureFileExists(_pcFile, "Manufacturer,CpuType,ClockSpeedGHz,RamGb,HddGb,ReleaseDate");
+            EnsureFileExists(_retailerFile, "Name,Address,Phone,Note");
+        }
+
+        private static void EnsureFileExists(string path, string header)
+        {
+            if (!File.Exists(path))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+                File.WriteAllText(path, header + Environment.NewLine);
+            }
         }
 
         public List<PersonalComputer_KhrapkoDD> LoadPcs()
         {
-            if (!File.Exists(_pcsPath)) return new List<PersonalComputer_KhrapkoDD>();
-
-            using var reader = new StreamReader(_pcsPath);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-            return csv.GetRecords<PersonalComputer_KhrapkoDD>().ToList();
+            if (!File.Exists(_pcFile)) return new List<PersonalComputer_KhrapkoDD>();
+            var lines = File.ReadAllLines(_pcFile);
+            var result = new List<PersonalComputer_KhrapkoDD>();
+            for (int i = 1; i < lines.Length; i++)
+            {
+                var parts = lines[i].Split(',');
+                if (parts.Length == 6 && DateTime.TryParse(parts[5], out var dt))
+                {
+                    result.Add(new PersonalComputer_KhrapkoDD
+                    {
+                        Manufacturer = parts[0],
+                        CpuType = parts[1],
+                        ClockSpeedGHz = double.Parse(parts[2]),
+                        RamGb = int.Parse(parts[3]),
+                        HddGb = int.Parse(parts[4]),
+                        ReleaseDate = dt
+                    });
+                }
+            }
+            return result;
         }
 
-        public void SavePcs(List<PersonalComputer_KhrapkoDD> pcs)
+        public void AddPc(PersonalComputer_KhrapkoDD pc)
         {
-            using var writer = new StreamWriter(_pcsPath);
-            using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-            csv.WriteRecords(pcs);
+            string line = $"{pc.Manufacturer},{pc.CpuType},{pc.ClockSpeedGHz},{pc.RamGb},{pc.HddGb},{pc.ReleaseDate:yyyy-MM-dd}";
+            File.AppendAllText(_pcFile, line + Environment.NewLine);
         }
 
-        public List<Retailer_KhrapkoDD> LoadRetailers()
+        public void RemovePc(PersonalComputer_KhrapkoDD pc)
         {
-            if (!File.Exists(_retailersPath)) return new List<Retailer_KhrapkoDD>();
-
-            using var reader = new StreamReader(_retailersPath);
-            using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
-            return csv.GetRecords<Retailer_KhrapkoDD>().ToList();
-        }
-
-        public void SaveRetailers(List<Retailer_KhrapkoDD> rr)
-        {
-            using var writer = new StreamWriter(_retailersPath);
-            using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-            csv.WriteRecords(rr);
+            var all = LoadPcs();
+            var filtered = all.Where(x =>
+                x.Manufacturer != pc.Manufacturer ||
+                x.CpuType != pc.CpuType ||
+                x.ReleaseDate != pc.ReleaseDate
+            ).ToList();
+            var header = "Manufacturer,CpuType,ClockSpeedGHz,RamGb,HddGb,ReleaseDate";
+            var lines = new[] { header }.Concat(filtered.Select(p =>
+                $"{p.Manufacturer},{p.CpuType},{p.ClockSpeedGHz},{p.RamGb},{p.HddGb},{p.ReleaseDate:yyyy-MM-dd}"
+            ));
+            File.WriteAllLines(_pcFile, lines);
         }
     }
 }

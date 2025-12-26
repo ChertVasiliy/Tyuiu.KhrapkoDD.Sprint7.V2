@@ -1,77 +1,98 @@
-﻿using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Forms;
-using System.ComponentModel; // для BindingSource
-using System.Data; // для DataGridView
-using static System.Net.Mime.MediaTypeNames;
-
-partial class MainForm_KhrapkoDD
+﻿namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
 {
-    private System.ComponentModel.IContainer components = null;
-
-    private MenuStrip menuStripMain_KhrapkoDD;
-    private ToolStrip toolStrip_KhrapkoDD;
-    private DataGridView dataGridViewPCs_KhrapkoDD;
-    private BindingSource bindingSourcePCs_KhrapkoDD;
-    private ToolStripButton toolStripButtonAdd_KhrapkoDD;
-    private ToolStripButton toolStripButtonEdit_KhrapkoDD;
-    private ToolStripButton toolStripButtonDelete_KhrapkoDD;
-    private ToolStripButton toolStripButtonRefresh_KhrapkoDD;
-    private ToolStripSeparator toolStripSeparator1;
-    private ToolStripLabel toolStripLabelSearch_KhrapkoDD;
-    private ToolStripTextBox toolStripTextBoxSearch_KhrapkoDD;
-    private ToolStripButton toolStripButtonSearch_KhrapkoDD;
-    private ToolStripButton toolStripButtonStats_KhrapkoDD;
-    private ToolStripButton toolStripButtonChart_KhrapkoDD;
-
-    private void InitializeComponent()
+    partial class MainForm_KhrapkoDD
     {
-        components = new System.ComponentModel.Container();
-        bindingSourcePCs_KhrapkoDD = new BindingSource(components);
-
-        dataGridViewPCs_KhrapkoDD = new DataGridView
+        private System.ComponentModel.IContainer components = null;
+        protected override void Dispose(bool disposing)
         {
-            Dock = DockStyle.Fill,
-            AllowUserToAddRows = false,
-            AutoGenerateColumns = true,
-            MultiSelect = false,
-            SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        };
+            if (disposing && (components != null)) components.Dispose();
+            base.Dispose(disposing);
+        }
 
-        toolStripButtonAdd_KhrapkoDD = new ToolStripButton("Добавить", null, (s, e) => AddPc_KhrapkoDD());
-        toolStripButtonEdit_KhrapkoDD = new ToolStripButton("Изменить", null, (s, e) => EditPc_KhrapkoDD());
-        toolStripButtonDelete_KhrapkoDD = new ToolStripButton("Удалить", null, (s, e) => DeletePc_KhrapkoDD());
-        toolStripButtonRefresh_KhrapkoDD = new ToolStripButton("Обновить", null, (s, e) => LoadDataToGrid_KhrapkoDD());
-        toolStripLabelSearch_KhrapkoDD = new ToolStripLabel("Поиск:");
-        toolStripTextBoxSearch_KhrapkoDD = new ToolStripTextBox();
-        toolStripButtonSearch_KhrapkoDD = new ToolStripButton("Фильтр", null, (s, e) => ApplyFilter_KhrapkoDD());
-        toolStripButtonStats_KhrapkoDD = new ToolStripButton("Статистика", null, (s, e) => ShowStats_KhrapkoDD());
-        toolStripButtonChart_KhrapkoDD = new ToolStripButton("График", null, (s, e) => ShowChart_KhrapkoDD());
-
-        toolStrip_KhrapkoDD = new ToolStrip
+        #region Windows Form Designer generated code
+        private void InitializeComponent()
         {
-            Items = { toolStripButtonAdd_KhrapkoDD, toolStripButtonEdit_KhrapkoDD,
-                      toolStripButtonDelete_KhrapkoDD, toolStripButtonRefresh_KhrapkoDD,
-                      toolStripSeparator1,
-                      toolStripLabelSearch_KhrapkoDD, toolStripTextBoxSearch_KhrapkoDD, toolStripButtonSearch_KhrapkoDD,
-                      new ToolStripSeparator(),
-                      toolStripButtonStats_KhrapkoDD, toolStripButtonChart_KhrapkoDD }
-        };
+            this.components = new System.ComponentModel.Container();
 
-        menuStripMain_KhrapkoDD = new MenuStrip();
-        var fileMenu = new ToolStripMenuItem("Файл");
-        fileMenu.DropDownItems.Add("Выход", null, (s, e) => Close());
-        var helpMenu = new ToolStripMenuItem("Справка");
-        helpMenu.DropDownItems.Add("О программе", null, (s, e) => new AboutForm_KhrapkoDD().ShowDialog());
-        helpMenu.DropDownItems.Add("Руководство", null, (s, e) => new HelpForm_KhrapkoDD().ShowDialog());
-        menuStripMain_KhrapkoDD.Items.Add(fileMenu);
-        menuStripMain_KhrapkoDD.Items.Add(helpMenu);
+            // ДИАГРАММА: используем ТОЛЬКО System.Windows.Forms.DataVisualization
+            var chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            var legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
 
-        Controls.Add(dataGridViewPCs_KhrapkoDD);
-        Controls.Add(toolStrip_KhrapkoDD);
-        Controls.Add(menuStripMain_KhrapkoDD);
-        MainMenuStrip = menuStripMain_KhrapkoDD;
-        Text = "Персональные ЭВМ – Храпко Д.Д.";
-        WindowState = FormWindowState.Maximized;
+            this.menuStripMain_KhrapkoDD = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.оПрограммеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.руководствоПользователяToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
+            this.toolStripMain_KhrapkoDD = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonAdd_KhrapkoDD = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonEdit_KhrapkoDD = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonDelete_KhrapkoDD = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonStats_KhrapkoDD = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonChart_KhrapkoDD = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTextBoxSearch_KhrapkoDD = new System.Windows.Forms.ToolStripTextBox();
+
+            this.dataGridViewPCs_KhrapkoDD = new System.Windows.Forms.DataGridView();
+            this.bindingSourcePCs_KhrapkoDD = new System.Windows.Forms.BindingSource(this.components);
+
+            this.chart1_KhrapkoDD = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            chartArea1.Name = "ChartArea1";
+            legend1.Name = "Legend1";
+            this.chart1_KhrapkoDD.ChartAreas.Add(chartArea1);
+            this.chart1_KhrapkoDD.Legends.Add(legend1);
+            this.chart1_KhrapkoDD.Location = new System.Drawing.Point(12, 320);
+            this.chart1_KhrapkoDD.Name = "chart1_KhrapkoDD";
+            this.chart1_KhrapkoDD.Size = new System.Drawing.Size(760, 200);
+            this.chart1_KhrapkoDD.TabIndex = 10;
+            this.chart1_KhrapkoDD.Visible = false;
+
+            this.statusStripMain_KhrapkoDD = new System.Windows.Forms.StatusStrip();
+
+            // Events
+            this.toolStripButtonAdd_KhrapkoDD.Click += new System.EventHandler(this.buttonAdd_KhrapkoDD_Click);
+            this.toolStripButtonEdit_KhrapkoDD.Click += new System.EventHandler(this.buttonEdit_KhrapkoDD_Click);
+            this.toolStripButtonDelete_KhrapkoDD.Click += new System.EventHandler(this.buttonDelete_KhrapkoDD_Click);
+            this.toolStripButtonStats_KhrapkoDD.Click += new System.EventHandler(this.buttonStats_KhrapkoDD_Click);
+            this.toolStripButtonChart_KhrapkoDD.Click += new System.EventHandler(this.buttonChart_KhrapkoDD_Click);
+            this.toolStripTextBoxSearch_KhrapkoDD.TextChanged += new System.EventHandler(this.toolStripTextBoxSearch_KhrapkoDD_TextChanged);
+            this.оПрограммеToolStripMenuItem.Click += new System.EventHandler(this.оПрограммеToolStripMenuItem_Click);
+            this.руководствоПользователяToolStripMenuItem.Click += new System.EventHandler(this.руководствоПользователяToolStripMenuItem_Click);
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
+
+            // Layout
+            this.Controls.Add(this.chart1_KhrapkoDD);
+            this.Controls.Add(this.dataGridViewPCs_KhrapkoDD);
+            this.Controls.Add(this.toolStripMain_KhrapkoDD);
+            this.Controls.Add(this.statusStripMain_KhrapkoDD);
+            this.MainMenuStrip = this.menuStripMain_KhrapkoDD;
+            this.Text = "Каталог ПК — Khrapko D.D.";
+            this.Size = new System.Drawing.Size(800, 600);
+
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPCs_KhrapkoDD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourcePCs_KhrapkoDD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1_KhrapkoDD)).EndInit();
+        }
+        #endregion
+
+        private System.Windows.Forms.MenuStrip menuStripMain_KhrapkoDD;
+        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem руководствоПользователяToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip toolStripMain_KhrapkoDD;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAdd_KhrapkoDD;
+        private System.Windows.Forms.ToolStripButton toolStripButtonEdit_KhrapkoDD;
+        private System.Windows.Forms.ToolStripButton toolStripButtonDelete_KhrapkoDD;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonStats_KhrapkoDD;
+        private System.Windows.Forms.ToolStripButton toolStripButtonChart_KhrapkoDD;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxSearch_KhrapkoDD;
+        private System.Windows.Forms.DataGridView dataGridViewPCs_KhrapkoDD;
+        private System.Windows.Forms.BindingSource bindingSourcePCs_KhrapkoDD;
+        private System.Windows.Forms.StatusStrip statusStripMain_KhrapkoDD;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1_KhrapkoDD;
     }
 }

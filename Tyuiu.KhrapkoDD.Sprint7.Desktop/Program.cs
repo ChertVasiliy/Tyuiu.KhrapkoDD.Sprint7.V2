@@ -1,12 +1,16 @@
 using System;
-using System.IO;
 using System.Windows.Forms;
-using Tyuiu.KhrapkoDD.Sprint7.Desktop;
 
-ApplicationConfiguration.Initialize();
-
-// создаём папку Data, если нет
-var dataFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
-Directory.CreateDirectory(dataFolder);
-
-Application.Run(new MainForm_KhrapkoDD(dataFolder));
+namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
+{
+    internal static class Program
+    {
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm_KhrapkoDD());
+        }
+    }
+}

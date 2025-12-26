@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Tyuiu.KhrapkoDD.Sprint7.Lib.Model;
+
 using Tyuiu.KhrapkoDD.Sprint7.Lib.Models;
 using Tyuiu.KhrapkoDD.Sprint7.Lib.Services;
 
@@ -12,97 +10,108 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
     public partial class MainForm_KhrapkoDD : Form
     {
         private readonly CsvDataService_KhrapkoDD _dataService;
-        private readonly StatisticsService_KhrapkoDD _statService;
-        private List<PersonalComputer_KhrapkoDD> _fullList = new();
-        private BindingSource _bs = new();
 
-        public MainForm_KhrapkoDD(string dataFolder)
+        public MainForm_KhrapkoDD()
         {
             InitializeComponent();
-            _dataService = new CsvDataService_KhrapkoDD(dataFolder);
-            _statService = new StatisticsService_KhrapkoDD();
-            bindingSourcePCs_KhrapkoDD.DataSource = _fullList;
-            dataGridViewPCs_KhrapkoDD.DataSource = bindingSourcePCs_KhrapkoDD;
+            _dataService = new CsvDataService_KhrapkoDD(@"Data\pcs_KhrapkoDD.csv", @"Data\retailers_KhrapkoDD.csv");
             LoadDataToGrid_KhrapkoDD();
         }
 
-        /* ---------- CRUD ---------- */
         private void LoadDataToGrid_KhrapkoDD()
         {
-            _fullList = _dataService.LoadPcs();
-            _bs.DataSource = null;
-            _bs.DataSource = _fullList;
-            Text = $"Персональные ЭВМ – Храпко Д.Д. – Всего записей: {_fullList.Count}";
+            var pcs = _dataService.LoadPcs();
+            bindingSourcePCs_KhrapkoDD.DataSource = pcs;
+            dataGridViewPCs_KhrapkoDD.DataSource = bindingSourcePCs_KhrapkoDD;
         }
 
-        private void AddPc_KhrapkoDD()
+        private void buttonAdd_KhrapkoDD_Click(object sender, EventArgs e)
         {
-            var frm = new AddPcForm_KhrapkoDD(_dataService.LoadRetailers());
-            if (frm.ShowDialog() == DialogResult.OK)
+            using var form = new AddPcForm_KhrapkoDD();
+            if (form.ShowDialog() == DialogResult.OK && form.CreatedPc != null)
             {
-                _fullList.Add(frm.Pc);
-                SaveAndReload();
+                _dataService.AddPc(form.CreatedPc);
+                LoadDataToGrid_KhrapkoDD();
             }
         }
 
-        private void EditPc_KhrapkoDD()
+        private void buttonEdit_KhrapkoDD_Click(object sender, EventArgs e)
         {
-            if (bindingSourcePCs_KhrapkoDD.Current is PersonalComputer_KhrapkoDD pc)
+            if (dataGridViewPCs_KhrapkoDD.CurrentRow?.DataBoundItem is PersonalComputer_KhrapkoDD pc)
             {
-                var frm = new AddPcForm_KhrapkoDD(_dataService.LoadRetailers(), pc);
-                if (frm.ShowDialog() == DialogResult.OK)
+                var clone = new PersonalComputer_KhrapkoDD
                 {
-                    SaveAndReload();
+                    Manufacturer = pc.Manufacturer,
+                    CpuType = pc.CpuType,
+                    ClockSpeedGHz = pc.ClockSpeedGHz,
+                    RamGb = pc.RamGb,
+                    HddGb = pc.HddGb,
+                    ReleaseDate = pc.ReleaseDate
+                };
+                using var form = new AddPcForm_KhrapkoDD(clone);
+                if (form.ShowDialog() == DialogResult.OK && form.CreatedPc != null)
+                {
+                    _dataService.RemovePc(pc);
+                    _dataService.AddPc(form.CreatedPc);
+                    LoadDataToGrid_KhrapkoDD();
                 }
             }
         }
 
-        private void DeletePc_KhrapkoDD()
+        private void buttonDelete_KhrapkoDD_Click(object sender, EventArgs e)
         {
-            if (bindingSourcePCs_KhrapkoDD.Current is PersonalComputer_KhrapkoDD pc)
+            if (dataGridViewPCs_KhrapkoDD.CurrentRow?.DataBoundItem is PersonalComputer_KhrapkoDD pc)
             {
-                if (MessageBox.Show($"Удалить ПК '{pc.Manufacturer}' ?", "Подтверждение",
-                                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Удалить?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    _fullList.Remove(pc);
-                    SaveAndReload();
+                    _dataService.RemovePc(pc);
+                    LoadDataToGrid_KhrapkoDD();
                 }
             }
         }
 
-        private void SaveAndReload()
+        private void buttonStats_KhrapkoDD_Click(object sender, EventArgs e)
         {
-            _dataService.SavePcs(_fullList);
-            LoadDataToGrid_KhrapkoDD();
+            var pcs = _dataService.LoadPcs();
+            if (!pcs.Any()) return;
+            double avg = pcs.Average(p => p.RamGb);
+            double max = pcs.Max(p => p.ClockSpeedGHz);
+            MessageBox.Show($"Среднее RAM: {avg:F1} ГБ\nМакс. частота: {max} ГГц", "Статистика");
         }
 
-        /* ---------- Поиск / фильтр ---------- */
-        private void ApplyFilter_KhrapkoDD()
+        private void buttonChart_KhrapkoDD_Click(object sender, EventArgs e)
         {
-            var key = toolStripTextBoxSearch_KhrapkoDD.Text.Trim().ToLower();
-            var filtered = _fullList.Where(p =>
-                p.Manufacturer.ToLower().Contains(key) ||
-                p.CpuType.ToLower().Contains(key)).ToList();
-            _bs.DataSource = filtered;
+            // ЯВНОЕ указание пространства имён — устраняет конфликт
+            var chart = this.chart1_KhrapkoDD;
+            chart.Series.Clear();
+
+            var series = new System.Windows.Forms.DataVisualization.Charting.Series
+            {
+                Name = "RAM",
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column
+            };
+
+            foreach (var pc in _dataService.LoadPcs())
+            {
+                series.Points.AddXY(pc.Manufacturer, pc.RamGb);
+            }
+
+            chart.Series.Add(series);
+            chart.Visible = true;
         }
 
-        /* ---------- Статистика ---------- */
-        private void ShowStats_KhrapkoDD()
+        private void toolStripTextBoxSearch_KhrapkoDD_TextChanged(object sender, EventArgs e)
         {
-            var sb = new System.Text.StringBuilder();
-            sb.AppendLine($"Всего ПК: {_statService.Count(_fullList)}");
-            sb.AppendLine($"Суммарно ОЗУ (ГБ): {_statService.TotalRam(_fullList)}");
-            sb.AppendLine($"Средняя частота (МГц): {_statService.AvgFrequency(_fullList):F0}");
-            sb.AppendLine($"Мин / Max HDD (ГБ): {_statService.MinHdd(_fullList)} / {_statService.MaxHdd(_fullList)}");
-            MessageBox.Show(sb.ToString(), "Статистика", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string term = toolStripTextBoxSearch_KhrapkoDD.Text.Trim().ToLower();
+            var filtered = _dataService.LoadPcs()
+                .Where(p => p.Manufacturer.ToLower().Contains(term) || p.CpuType.ToLower().Contains(term))
+                .ToList();
+            bindingSourcePCs_KhrapkoDD.DataSource = filtered;
+            bindingSourcePCs_KhrapkoDD.ResetBindings(false);
         }
 
-        /* ---------- График ---------- */
-        private void ShowChart_KhrapkoDD()
-        {
-            var data = _statService.GroupByManufacturer(_fullList);
-            var chartFrm = new ChartForm_KhrapkoDD(data);
-            chartFrm.ShowDialog();
-        }
+        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e) => new AboutForm_KhrapkoDD().ShowDialog();
+        private void руководствоПользователяToolStripMenuItem_Click(object sender, EventArgs e) => new HelpForm_KhrapkoDD().ShowDialog();
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Close();
     }
 }

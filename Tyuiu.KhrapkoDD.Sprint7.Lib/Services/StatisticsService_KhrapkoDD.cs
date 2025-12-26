@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Tyuiu.KhrapkoDD.Sprint7.Lib.Model;
 using Tyuiu.KhrapkoDD.Sprint7.Lib.Models;
 
 namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Services
