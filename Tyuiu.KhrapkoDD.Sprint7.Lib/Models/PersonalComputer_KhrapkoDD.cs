@@ -10,5 +10,6 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Models
         public int RamGb { get; set; }
         public int HddGb { get; set; }
         public DateTime ReleaseDate { get; set; }
+        public int CpuFrequencyMHz { get; set; }
     }
 }
