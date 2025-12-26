@@ -11,5 +11,17 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Models
         public int HddGb { get; set; }
         public DateTime ReleaseDate { get; set; }
         public int CpuFrequencyMHz { get; set; }
+        public int YearOfManufacture { get; set; }
+
+        // Добавьте это свойство
+        public int AgeYears
+        {
+            get
+            {
+                return DateTime.Now.Year - YearOfManufacture;
+            }
+        }
+
+        // ... остальные свойства и методы
     }
 }
