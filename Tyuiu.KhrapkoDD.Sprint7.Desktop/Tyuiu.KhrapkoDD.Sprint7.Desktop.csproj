@@ -10,7 +10,6 @@
     <PackageReference Include="GrapeCity.DataVisualization.Chart" Version="0.4.136" />
     <PackageReference Include="HIC.System.Windows.Forms.DataVisualization" Version="1.0.1" />
     <PackageReference Include="Maikebing.System.Windows.Forms.DataVisualization" Version="5.0.1" />
-    <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
   </ItemGroup>
 
   <PropertyGroup>

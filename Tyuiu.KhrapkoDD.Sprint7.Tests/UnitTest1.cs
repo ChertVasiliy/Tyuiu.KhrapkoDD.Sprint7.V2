@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tyuiu.KhrapkoDD.Sprint7.Lib.Model;
 using Tyuiu.KhrapkoDD.Sprint7.Lib.Models;
 using Tyuiu.KhrapkoDD.Sprint7.Lib.Services;
 using Xunit;
