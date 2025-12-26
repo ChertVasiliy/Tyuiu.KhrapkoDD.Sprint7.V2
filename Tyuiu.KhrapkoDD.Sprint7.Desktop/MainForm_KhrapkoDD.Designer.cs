@@ -14,16 +14,11 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm_KhrapkoDD));
-            menuStripMain_KhrapkoDD = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             выходToolStripMenuItem = new ToolStripMenuItem();
             справкаToolStripMenuItem = new ToolStripMenuItem();
             оПрограммеToolStripMenuItem = new ToolStripMenuItem();
             руководствоПользователяToolStripMenuItem = new ToolStripMenuItem();
-            toolStripMain_KhrapkoDD = new ToolStrip();
-            toolStripButton1 = new ToolStripButton();
-            toolStripButton2 = new ToolStripButton();
-            toolStripButton3 = new ToolStripButton();
             toolStripButtonAdd_KhrapkoDD = new ToolStripButton();
             toolStripButtonEdit_KhrapkoDD = new ToolStripButton();
             toolStripButtonDelete_KhrapkoDD = new ToolStripButton();
@@ -34,18 +29,27 @@
             dataGridViewPCs_KhrapkoDD = new DataGridView();
             bindingSourcePCs_KhrapkoDD = new BindingSource(components);
             statusStripMain_KhrapkoDD = new StatusStrip();
-            toolStripMain_KhrapkoDD.SuspendLayout();
+            menuStripMain_KhrapkoDD = new MenuStrip();
+            menuStrip1 = new MenuStrip();
+            toolStrip1 = new ToolStrip();
+            oolStripButtonAdd = new ToolStripButton();
+            toolStripButtonEdit = new ToolStripButton();
+            toolStripButtonDelete = new ToolStripButton();
+            toolStripButtonStats = new ToolStripButton();
+            toolStripButtonChart = new ToolStripButton();
+            файлToolStripMenuItem1 = new ToolStripMenuItem();
+            данныеToolStripMenuItem = new ToolStripMenuItem();
+            справкаToolStripMenuItem1 = new ToolStripMenuItem();
+            сортировкаToolStripMenuItem = new ToolStripMenuItem();
+            оЗУToolStripMenuItem = new ToolStripMenuItem();
+            hDDToolStripMenuItem = new ToolStripMenuItem();
+            chart1 = new FastReport.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPCs_KhrapkoDD).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bindingSourcePCs_KhrapkoDD).BeginInit();
+            menuStrip1.SuspendLayout();
+            toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chart1).BeginInit();
             SuspendLayout();
-            // 
-            // menuStripMain_KhrapkoDD
-            // 
-            menuStripMain_KhrapkoDD.ImageScalingSize = new Size(20, 20);
-            menuStripMain_KhrapkoDD.Location = new Point(0, 0);
-            menuStripMain_KhrapkoDD.Name = "menuStripMain_KhrapkoDD";
-            menuStripMain_KhrapkoDD.Size = new Size(200, 24);
-            menuStripMain_KhrapkoDD.TabIndex = 0;
             // 
             // файлToolStripMenuItem
             // 
@@ -74,43 +78,6 @@
             руководствоПользователяToolStripMenuItem.Name = "руководствоПользователяToolStripMenuItem";
             руководствоПользователяToolStripMenuItem.Size = new Size(32, 19);
             руководствоПользователяToolStripMenuItem.Click += руководствоПользователяToolStripMenuItem_Click;
-            // 
-            // toolStripMain_KhrapkoDD
-            // 
-            toolStripMain_KhrapkoDD.ImageScalingSize = new Size(50, 50);
-            toolStripMain_KhrapkoDD.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2, toolStripButton3 });
-            toolStripMain_KhrapkoDD.Location = new Point(0, 0);
-            toolStripMain_KhrapkoDD.Name = "toolStripMain_KhrapkoDD";
-            toolStripMain_KhrapkoDD.Size = new Size(1636, 57);
-            toolStripMain_KhrapkoDD.TabIndex = 1;
-            // 
-            // toolStripButton1
-            // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(54, 54);
-            toolStripButton1.Text = "toolStripButton1";
-            toolStripButton1.Click += toolStripButton1_Click;
-            // 
-            // toolStripButton2
-            // 
-            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
-            toolStripButton2.ImageTransparentColor = Color.Magenta;
-            toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new Size(54, 54);
-            toolStripButton2.Text = "toolStripButton2";
-            // 
-            // toolStripButton3
-            // 
-            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(54, 54);
-            toolStripButton3.Text = "toolStripButton3";
             // 
             // toolStripButtonAdd_KhrapkoDD
             // 
@@ -170,31 +137,154 @@
             statusStripMain_KhrapkoDD.Size = new Size(1636, 22);
             statusStripMain_KhrapkoDD.TabIndex = 2;
             // 
+            // menuStripMain_KhrapkoDD
+            // 
+            menuStripMain_KhrapkoDD.ImageScalingSize = new Size(20, 20);
+            menuStripMain_KhrapkoDD.Location = new Point(0, 0);
+            menuStripMain_KhrapkoDD.Name = "menuStripMain_KhrapkoDD";
+            menuStripMain_KhrapkoDD.Size = new Size(200, 24);
+            menuStripMain_KhrapkoDD.TabIndex = 0;
+            menuStripMain_KhrapkoDD.ItemClicked += menuStripMain_KhrapkoDD_ItemClicked;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem1, данныеToolStripMenuItem, справкаToolStripMenuItem1 });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1636, 28);
+            menuStrip1.TabIndex = 3;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.ImageScalingSize = new Size(20, 20);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { oolStripButtonAdd, toolStripButtonEdit, toolStripButtonDelete, toolStripButtonStats, toolStripButtonChart });
+            toolStrip1.Location = new Point(0, 28);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(1636, 27);
+            toolStrip1.TabIndex = 4;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // oolStripButtonAdd
+            // 
+            oolStripButtonAdd.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            oolStripButtonAdd.Image = (Image)resources.GetObject("oolStripButtonAdd.Image");
+            oolStripButtonAdd.ImageTransparentColor = Color.Magenta;
+            oolStripButtonAdd.Name = "oolStripButtonAdd";
+            oolStripButtonAdd.Size = new Size(29, 24);
+            oolStripButtonAdd.Text = "toolStripButton4";
+            // 
+            // toolStripButtonEdit
+            // 
+            toolStripButtonEdit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButtonEdit.Image = (Image)resources.GetObject("toolStripButtonEdit.Image");
+            toolStripButtonEdit.ImageTransparentColor = Color.Magenta;
+            toolStripButtonEdit.Name = "toolStripButtonEdit";
+            toolStripButtonEdit.Size = new Size(29, 24);
+            toolStripButtonEdit.Text = "toolStripButton1";
+            // 
+            // toolStripButtonDelete
+            // 
+            toolStripButtonDelete.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButtonDelete.Image = (Image)resources.GetObject("toolStripButtonDelete.Image");
+            toolStripButtonDelete.ImageTransparentColor = Color.Magenta;
+            toolStripButtonDelete.Name = "toolStripButtonDelete";
+            toolStripButtonDelete.Size = new Size(29, 24);
+            toolStripButtonDelete.Text = "toolStripButton2";
+            // 
+            // toolStripButtonStats
+            // 
+            toolStripButtonStats.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButtonStats.Image = (Image)resources.GetObject("toolStripButtonStats.Image");
+            toolStripButtonStats.ImageTransparentColor = Color.Magenta;
+            toolStripButtonStats.Name = "toolStripButtonStats";
+            toolStripButtonStats.Size = new Size(29, 24);
+            toolStripButtonStats.Text = "toolStripButton3";
+            // 
+            // toolStripButtonChart
+            // 
+            toolStripButtonChart.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButtonChart.Image = (Image)resources.GetObject("toolStripButtonChart.Image");
+            toolStripButtonChart.ImageTransparentColor = Color.Magenta;
+            toolStripButtonChart.Name = "toolStripButtonChart";
+            toolStripButtonChart.Size = new Size(29, 24);
+            toolStripButtonChart.Text = "toolStripButton5";
+            // 
+            // файлToolStripMenuItem1
+            // 
+            файлToolStripMenuItem1.Name = "файлToolStripMenuItem1";
+            файлToolStripMenuItem1.Size = new Size(59, 24);
+            файлToolStripMenuItem1.Text = "Файл";
+            // 
+            // данныеToolStripMenuItem
+            // 
+            данныеToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { сортировкаToolStripMenuItem });
+            данныеToolStripMenuItem.Name = "данныеToolStripMenuItem";
+            данныеToolStripMenuItem.Size = new Size(78, 24);
+            данныеToolStripMenuItem.Text = "Данные";
+            // 
+            // справкаToolStripMenuItem1
+            // 
+            справкаToolStripMenuItem1.Name = "справкаToolStripMenuItem1";
+            справкаToolStripMenuItem1.Size = new Size(81, 24);
+            справкаToolStripMenuItem1.Text = "Справка";
+            // 
+            // сортировкаToolStripMenuItem
+            // 
+            сортировкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { оЗУToolStripMenuItem, hDDToolStripMenuItem });
+            сортировкаToolStripMenuItem.Name = "сортировкаToolStripMenuItem";
+            сортировкаToolStripMenuItem.Size = new Size(224, 26);
+            сортировкаToolStripMenuItem.Text = "сортировка";
+            // 
+            // оЗУToolStripMenuItem
+            // 
+            оЗУToolStripMenuItem.Name = "оЗУToolStripMenuItem";
+            оЗУToolStripMenuItem.Size = new Size(224, 26);
+            оЗУToolStripMenuItem.Text = "ОЗУ";
+            // 
+            // hDDToolStripMenuItem
+            // 
+            hDDToolStripMenuItem.Name = "hDDToolStripMenuItem";
+            hDDToolStripMenuItem.Size = new Size(224, 26);
+            hDDToolStripMenuItem.Text = "HDD";
+            // 
+            // chart1
+            // 
+            chart1.Location = new Point(33, 355);
+            chart1.Name = "chart1";
+            chart1.Size = new Size(189, 75);
+            chart1.TabIndex = 5;
+            chart1.Text = "chart1";
+            // 
             // MainForm_KhrapkoDD
             // 
             ClientSize = new Size(1636, 460);
+            Controls.Add(chart1);
+            Controls.Add(toolStrip1);
             Controls.Add(dataGridViewPCs_KhrapkoDD);
-            Controls.Add(toolStripMain_KhrapkoDD);
             Controls.Add(statusStripMain_KhrapkoDD);
+            Controls.Add(menuStrip1);
             MainMenuStrip = menuStripMain_KhrapkoDD;
             Name = "MainForm_KhrapkoDD";
             Text = "Каталог ПК — Khrapko D.D.";
-            toolStripMain_KhrapkoDD.ResumeLayout(false);
-            toolStripMain_KhrapkoDD.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPCs_KhrapkoDD).EndInit();
             ((System.ComponentModel.ISupportInitialize)bindingSourcePCs_KhrapkoDD).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)chart1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
-        #endregion
 
-        private System.Windows.Forms.MenuStrip menuStripMain_KhrapkoDD;
+        #endregion
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem оПрограммеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem руководствоПользователяToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStripMain_KhrapkoDD;
         private System.Windows.Forms.ToolStripButton toolStripButtonAdd_KhrapkoDD;
         private System.Windows.Forms.ToolStripButton toolStripButtonEdit_KhrapkoDD;
         private System.Windows.Forms.ToolStripButton toolStripButtonDelete_KhrapkoDD;
@@ -206,8 +296,20 @@
         private System.Windows.Forms.BindingSource bindingSourcePCs_KhrapkoDD;
         private System.Windows.Forms.StatusStrip statusStripMain_KhrapkoDD;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1_KhrapkoDD;
-        private ToolStripButton toolStripButton1;
-        private ToolStripButton toolStripButton2;
-        private ToolStripButton toolStripButton3;
+        private MenuStrip menuStripMain_KhrapkoDD;
+        private MenuStrip menuStrip1;
+        private ToolStrip toolStrip1;
+        private ToolStripButton oolStripButtonAdd;
+        private ToolStripButton toolStripButtonEdit;
+        private ToolStripButton toolStripButtonDelete;
+        private ToolStripButton toolStripButtonStats;
+        private ToolStripButton toolStripButtonChart;
+        private ToolStripMenuItem файлToolStripMenuItem1;
+        private ToolStripMenuItem данныеToolStripMenuItem;
+        private ToolStripMenuItem сортировкаToolStripMenuItem;
+        private ToolStripMenuItem оЗУToolStripMenuItem;
+        private ToolStripMenuItem hDDToolStripMenuItem;
+        private ToolStripMenuItem справкаToolStripMenuItem1;
+        private FastReport.DataVisualization.Charting.Chart chart1;
     }
 }

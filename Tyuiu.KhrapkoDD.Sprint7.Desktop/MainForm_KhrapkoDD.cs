@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 using Tyuiu.KhrapkoDD.Sprint7.Lib.Models;
 using Tyuiu.KhrapkoDD.Sprint7.Lib.Services;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
 {
@@ -117,6 +118,18 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void menuStripMain_KhrapkoDD_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            InitializeComponent();
+            _dataService = new CsvDataService_KhrapkoDD(@"Data\pcs_KhrapkoDD.csv", @"Data\retailers_KhrapkoDD.csv");
+            _toolTip.SetToolTip(toolStripButtonAdd_KhrapkoDD, "Добавить новый ПК");
+            _toolTip.SetToolTip(toolStripButtonEdit_KhrapkoDD, "Изменить выбранную запись");
+            _toolTip.SetToolTip(toolStripButtonDelete_KhrapkoDD, "Удалить ПК");
+            _toolTip.SetToolTip(toolStripButtonStats_KhrapkoDD, "Показать полную статистику");
+            _toolTip.SetToolTip(toolStripButtonChart_KhrapkoDD, "Показать гистограмму ОЗУ");
+            LoadDataToGrid_KhrapkoDD();
         }
     }
 }
