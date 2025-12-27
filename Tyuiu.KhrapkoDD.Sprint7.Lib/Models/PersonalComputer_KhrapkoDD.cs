@@ -6,22 +6,11 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Models
     {
         public string Manufacturer { get; set; } = string.Empty;
         public string CpuType { get; set; } = string.Empty;
-        public double ClockSpeedGHz { get; set; }  // ← КЛЮЧЕВОЕ СВОЙСТВО, ТОЧНОЕ ИМЯ
+        public double ClockSpeedGHz { get; set; } // ← старое поле
+        public int CpuFrequencyMHz { get; set; } // ← новое поле
         public int RamGb { get; set; }
         public int HddGb { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public int CpuFrequencyMHz { get; set; }
-        public int YearOfManufacture { get; set; }
-
-        // Добавьте это свойство
-        public int AgeYears
-        {
-            get
-            {
-                return DateTime.Now.Year - YearOfManufacture;
-            }
-        }
-
-        // ... остальные свойства и методы
+        public int AgeYears => (int)((DateTime.Now - ReleaseDate).TotalDays / 365.25); // ← вычисляемое поле
     }
 }

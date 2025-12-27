@@ -15,7 +15,7 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Services
         {
             _pcFile = pcFile;
             _retailerFile = retailerFile;
-            EnsureFileExists(_pcFile, "Manufacturer,CpuType,ClockSpeedGHz,RamGb,HddGb,ReleaseDate");
+            EnsureFileExists(_pcFile, "Manufacturer,CpuType,ClockSpeedGHz,CpuFrequencyMHz,RamGb,HddGb,ReleaseDate");
             EnsureFileExists(_retailerFile, "Name,Address,Phone,Note");
         }
 
@@ -36,15 +36,16 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Services
             for (int i = 1; i < lines.Length; i++)
             {
                 var parts = lines[i].Split(',');
-                if (parts.Length == 6 && DateTime.TryParse(parts[5], out var dt))
+                if (parts.Length == 7 && DateTime.TryParse(parts[6], out var dt))
                 {
                     result.Add(new PersonalComputer_KhrapkoDD
                     {
                         Manufacturer = parts[0],
                         CpuType = parts[1],
                         ClockSpeedGHz = double.Parse(parts[2]),
-                        RamGb = int.Parse(parts[3]),
-                        HddGb = int.Parse(parts[4]),
+                        CpuFrequencyMHz = int.Parse(parts[3]),
+                        RamGb = int.Parse(parts[4]),
+                        HddGb = int.Parse(parts[5]),
                         ReleaseDate = dt
                     });
                 }
@@ -54,7 +55,7 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Services
 
         public void AddPc(PersonalComputer_KhrapkoDD pc)
         {
-            string line = $"{pc.Manufacturer},{pc.CpuType},{pc.ClockSpeedGHz},{pc.RamGb},{pc.HddGb},{pc.ReleaseDate:yyyy-MM-dd}";
+            string line = $"{pc.Manufacturer},{pc.CpuType},{pc.ClockSpeedGHz},{pc.CpuFrequencyMHz},{pc.RamGb},{pc.HddGb},{pc.ReleaseDate:yyyy-MM-dd}";
             File.AppendAllText(_pcFile, line + Environment.NewLine);
         }
 
@@ -66,9 +67,9 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Lib.Services
                 x.CpuType != pc.CpuType ||
                 x.ReleaseDate != pc.ReleaseDate
             ).ToList();
-            var header = "Manufacturer,CpuType,ClockSpeedGHz,RamGb,HddGb,ReleaseDate";
+            var header = "Manufacturer,CpuType,ClockSpeedGHz,CpuFrequencyMHz,RamGb,HddGb,ReleaseDate";
             var lines = new[] { header }.Concat(filtered.Select(p =>
-                $"{p.Manufacturer},{p.CpuType},{p.ClockSpeedGHz},{p.RamGb},{p.HddGb},{p.ReleaseDate:yyyy-MM-dd}"
+                $"{p.Manufacturer},{p.CpuType},{p.ClockSpeedGHz},{p.CpuFrequencyMHz},{p.RamGb},{p.HddGb},{p.ReleaseDate:yyyy-MM-dd}"
             ));
             File.WriteAllLines(_pcFile, lines);
         }
