@@ -9,36 +9,34 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
     public partial class MainForm_KhrapkoDD : Form
     {
         private readonly CsvDataService_KhrapkoDD _dataService;
-        private readonly ToolTip _toolTip; // ← readonly, инициализируется ТОЛЬКО в конструкторе
 
         public MainForm_KhrapkoDD()
         {
             InitializeComponent();
             _dataService = new CsvDataService_KhrapkoDD(@"Data\pcs_KhrapkoDD.csv", @"Data\retailers_KhrapkoDD.csv");
-            _toolTip = new ToolTip(); // ← ОБЯЗАТЕЛЬНО в конструкторе!
-            SetupTooltips_KhrapkoDD();
-            LoadDataToGrid_KhrapkoDD();
-        }
 
-        private void SetupTooltips_KhrapkoDD()
-        {
-            _toolTip.SetToolTip(toolStripButtonAdd_KhrapkoDD, "Добавить новый ПК");
-            _toolTip.SetToolTip(toolStripButtonEdit_KhrapkoDD, "Изменить выбранную запись");
-            _toolTip.SetToolTip(toolStripButtonDelete_KhrapkoDD, "Удалить запись");
-            _toolTip.SetToolTip(toolStripButtonStats_KhrapkoDD, "Показать полную статистику");
-            _toolTip.SetToolTip(toolStripButtonChart_KhrapkoDD, "Показать гистограмму ОЗУ");
-            _toolTip.SetToolTip(toolStripButtonRetailers_KhrapkoDD, "Открыть список фирм-реализаторов");
-            _toolTip.SetToolTip(toolStripTextBoxSearch_KhrapkoDD, "Поиск по производителю или CPU");
+            // ПОДСКАЗКИ ДЛЯ ToolStrip: используем ToolTipText, а не ToolTip!
+            toolStripButtonAdd_KhrapkoDD.ToolTipText = "Добавить новый ПК";
+            toolStripButtonEdit_KhrapkoDD.ToolTipText = "Изменить выбранную запись";
+            toolStripButtonDelete_KhrapkoDD.ToolTipText = "Удалить запись";
+            toolStripButtonStats_KhrapkoDD.ToolTipText = "Показать статистику";
+            toolStripButtonChart_KhrapkoDD.ToolTipText = "Показать гистограмму ОЗУ";
+            toolStripTextBoxSearch_KhrapkoDD.ToolTipText = "Поиск по производителю или CPU";
+
+            LoadDataToGrid_KhrapkoDD();
         }
 
         private void LoadDataToGrid_KhrapkoDD()
         {
             var pcs = _dataService.LoadPcs();
             bindingSourcePCs_KhrapkoDD.DataSource = pcs;
-            toolStripStatusLabelCount_KhrapkoDD.Text = $"Записей: {pcs.Count}";
+            // Уберите эту строку — она избыточна:
+            // dataGridViewPCs_KhrapkoDD.DataSource = bindingSourcePCs_KhrapkoDD;
+
+            // СЧЁТЧИК ЗАПИСЕЙ: пока выводим в заголовок, так как StatusLabel отсутствует
+            this.Text = $"Каталог ПК — Khrapko D.D. (Записей: {pcs.Count})";
         }
 
-        // === УПРАВЛЕНИЕ ПК ===
         private void buttonAdd_KhrapkoDD_Click(object sender, EventArgs e)
         {
             using var form = new AddPcForm_KhrapkoDD();
@@ -76,7 +74,7 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
         {
             if (dataGridViewPCs_KhrapkoDD.CurrentRow?.DataBoundItem is PersonalComputer_KhrapkoDD pc)
             {
-                if (MessageBox.Show("Удалить запись?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Удалить?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     _dataService.RemovePc(pc);
                     LoadDataToGrid_KhrapkoDD();
@@ -84,45 +82,43 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
             }
         }
 
-        // === ПЕРЕХОД В ДРУГИЕ ФОРМЫ ===
         private void buttonStats_KhrapkoDD_Click(object sender, EventArgs e)
         {
             var pcs = _dataService.LoadPcs();
-            if (pcs.Any()) new StatisticsForm_KhrapkoDD(pcs).ShowDialog();
+            if (!pcs.Any()) return;
+            double avg = pcs.Average(p => p.RamGb);
+            double max = pcs.Max(p => p.ClockSpeedGHz);
+            MessageBox.Show($"Среднее RAM: {avg:F1} ГБ\nМакс. частота: {max} ГГц", "Статистика");
         }
 
         private void buttonChart_KhrapkoDD_Click(object sender, EventArgs e)
         {
-            chart1_KhrapkoDD.Series.Clear();
+            // ЯВНОЕ указание пространства имён — устраняет конфликт
+            var chart = this.chart1_KhrapkoDD;
+            chart.Series.Clear();
             var series = new System.Windows.Forms.DataVisualization.Charting.Series
             {
                 Name = "RAM",
                 ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column
             };
             foreach (var pc in _dataService.LoadPcs())
+            {
                 series.Points.AddXY(pc.Manufacturer, pc.RamGb);
-            chart1_KhrapkoDD.Series.Add(series);
-            chart1_KhrapkoDD.Visible = true;
+            }
+            chart.Series.Add(series); // ← Правильно: Series -> добавляется объект, не строка
+            chart.Visible = true;
         }
 
-        private void buttonRetailers_KhrapkoDD_Click(object sender, EventArgs e)
-        {
-            new RetailersForm_KhrapkoDD().ShowDialog();
-        }
-
-        // === ПОИСК ===
         private void toolStripTextBoxSearch_KhrapkoDD_TextChanged(object sender, EventArgs e)
         {
             string term = toolStripTextBoxSearch_KhrapkoDD.Text.Trim().ToLower();
             var filtered = _dataService.LoadPcs()
-                .Where(p => p.Manufacturer.ToLower().Contains(term) ||
-                            p.CpuType.ToLower().Contains(term))
+                .Where(p => p.Manufacturer.ToLower().Contains(term) || p.CpuType.ToLower().Contains(term))
                 .ToList();
             bindingSourcePCs_KhrapkoDD.DataSource = filtered;
             bindingSourcePCs_KhrapkoDD.ResetBindings(false);
         }
 
-        // === МЕНЮ ===
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e) => new AboutForm_KhrapkoDD().ShowDialog();
         private void руководствоПользователяToolStripMenuItem_Click(object sender, EventArgs e) => new HelpForm_KhrapkoDD().ShowDialog();
         private void выходToolStripMenuItem_Click(object sender, EventArgs e) => Close();
