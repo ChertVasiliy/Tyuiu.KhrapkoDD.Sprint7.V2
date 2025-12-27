@@ -29,7 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm_KhrapkoDD));
+            FastReport.DataVisualization.Charting.Series series1 = new FastReport.DataVisualization.Charting.Series();
             menuStripMain_KhrapkoDD = new MenuStrip();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
+            файлToolStripMenuItem = new ToolStripMenuItem();
+            сортировкаПоОЗУAscToolStripMenuItem_Click = new ToolStripMenuItem();
+            справкаToolStripMenuItem = new ToolStripMenuItem();
+            сортировкаПоЧастотеDescToolStripMenuItem_Click = new ToolStripMenuItem();
             toolStripMain_KhrapkoDD = new ToolStrip();
             toolStripButtonAdd_KhrapkoDD = new ToolStripButton();
             toolStripButtonEdit_KhrapkoDD = new ToolStripButton();
@@ -41,6 +48,7 @@
             dataGridViewPCs_KhrapkoDD = new DataGridView();
             chart1_KhrapkoDD = new FastReport.DataVisualization.Charting.Chart();
             statusStripMain_KhrapkoDD = new StatusStrip();
+            menuStripMain_KhrapkoDD.SuspendLayout();
             toolStripMain_KhrapkoDD.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPCs_KhrapkoDD).BeginInit();
             ((System.ComponentModel.ISupportInitialize)chart1_KhrapkoDD).BeginInit();
@@ -49,17 +57,52 @@
             // menuStripMain_KhrapkoDD
             // 
             menuStripMain_KhrapkoDD.ImageScalingSize = new Size(20, 20);
+            menuStripMain_KhrapkoDD.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, toolStripMenuItem2, файлToolStripMenuItem, сортировкаПоОЗУAscToolStripMenuItem_Click, справкаToolStripMenuItem, сортировкаПоЧастотеDescToolStripMenuItem_Click });
             menuStripMain_KhrapkoDD.Location = new Point(0, 0);
             menuStripMain_KhrapkoDD.Name = "menuStripMain_KhrapkoDD";
-            menuStripMain_KhrapkoDD.Size = new Size(800, 24);
+            menuStripMain_KhrapkoDD.Size = new Size(800, 28);
             menuStripMain_KhrapkoDD.TabIndex = 0;
             menuStripMain_KhrapkoDD.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(14, 24);
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(14, 24);
+            // 
+            // файлToolStripMenuItem
+            // 
+            файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            файлToolStripMenuItem.Size = new Size(58, 24);
+            файлToolStripMenuItem.Text = "файл";
+            // 
+            // сортировкаПоОЗУAscToolStripMenuItem_Click
+            // 
+            сортировкаПоОЗУAscToolStripMenuItem_Click.Name = "сортировкаПоОЗУAscToolStripMenuItem_Click";
+            сортировкаПоОЗУAscToolStripMenuItem_Click.Size = new Size(153, 24);
+            сортировкаПоОЗУAscToolStripMenuItem_Click.Text = "сортировка по озу";
+            // 
+            // справкаToolStripMenuItem
+            // 
+            справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            справкаToolStripMenuItem.Size = new Size(79, 24);
+            справкаToolStripMenuItem.Text = "справка";
+            // 
+            // сортировкаПоЧастотеDescToolStripMenuItem_Click
+            // 
+            сортировкаПоЧастотеDescToolStripMenuItem_Click.Name = "сортировкаПоЧастотеDescToolStripMenuItem_Click";
+            сортировкаПоЧастотеDescToolStripMenuItem_Click.Size = new Size(182, 24);
+            сортировкаПоЧастотеDescToolStripMenuItem_Click.Text = "сортировка по частоте";
             // 
             // toolStripMain_KhrapkoDD
             // 
             toolStripMain_KhrapkoDD.ImageScalingSize = new Size(20, 20);
             toolStripMain_KhrapkoDD.Items.AddRange(new ToolStripItem[] { toolStripButtonAdd_KhrapkoDD, toolStripButtonEdit_KhrapkoDD, toolStripButtonDelete_KhrapkoDD, toolStripSeparator1, toolStripButtonStats_KhrapkoDD, toolStripButtonChart_KhrapkoDD, toolStripButtonRetailers_KhrapkoDD });
-            toolStripMain_KhrapkoDD.Location = new Point(0, 24);
+            toolStripMain_KhrapkoDD.Location = new Point(0, 28);
             toolStripMain_KhrapkoDD.Name = "toolStripMain_KhrapkoDD";
             toolStripMain_KhrapkoDD.Size = new Size(800, 27);
             toolStripMain_KhrapkoDD.TabIndex = 1;
@@ -128,7 +171,6 @@
             toolStripButtonRetailers_KhrapkoDD.Name = "toolStripButtonRetailers_KhrapkoDD";
             toolStripButtonRetailers_KhrapkoDD.Size = new Size(29, 24);
             toolStripButtonRetailers_KhrapkoDD.Text = "toolStripButton1";
-            toolStripButtonRetailers_KhrapkoDD.Click += buttonRetailers_KhrapkoDD_Click;
             // 
             // dataGridViewPCs_KhrapkoDD
             // 
@@ -143,6 +185,8 @@
             // 
             chart1_KhrapkoDD.Location = new Point(42, 219);
             chart1_KhrapkoDD.Name = "chart1_KhrapkoDD";
+            series1.Name = "series";
+            chart1_KhrapkoDD.Series.Add(series1);
             chart1_KhrapkoDD.Size = new Size(257, 99);
             chart1_KhrapkoDD.TabIndex = 3;
             chart1_KhrapkoDD.Text = "chart1";
@@ -169,6 +213,8 @@
             MainMenuStrip = menuStripMain_KhrapkoDD;
             Name = "MainForm_KhrapkoDD";
             Text = "MainForm_KhrapkoDD";
+            menuStripMain_KhrapkoDD.ResumeLayout(false);
+            menuStripMain_KhrapkoDD.PerformLayout();
             toolStripMain_KhrapkoDD.ResumeLayout(false);
             toolStripMain_KhrapkoDD.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPCs_KhrapkoDD).EndInit();
@@ -191,5 +237,11 @@
         private DataGridView dataGridViewPCs_KhrapkoDD;
         private FastReport.DataVisualization.Charting.Chart chart1_KhrapkoDD;
         private StatusStrip statusStripMain_KhrapkoDD;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem файлToolStripMenuItem;
+        private ToolStripMenuItem сортировкаПоОЗУAscToolStripMenuItem_Click;
+        private ToolStripMenuItem справкаToolStripMenuItem;
+        private ToolStripMenuItem сортировкаПоЧастотеDescToolStripMenuItem_Click;
     }
 }

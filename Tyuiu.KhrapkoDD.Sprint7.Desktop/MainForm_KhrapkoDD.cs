@@ -29,8 +29,8 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
         private void LoadDataToGrid_KhrapkoDD()
         {
             var pcs = _dataService.LoadPcs();
-            bindingSourcePCs_KhrapkoDD.DataSource = pcs;
-            // Уберите эту строку — она избыточна:
+           
+           
             // dataGridViewPCs_KhrapkoDD.DataSource = bindingSourcePCs_KhrapkoDD;
 
             // СЧЁТЧИК ЗАПИСЕЙ: пока выводим в заголовок, так как StatusLabel отсутствует
@@ -105,18 +105,13 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
             {
                 series.Points.AddXY(pc.Manufacturer, pc.RamGb);
             }
-            chart.Series.Add(series); // ← Правильно: Series -> добавляется объект, не строка
+            object value = chart.Series.Add(series); // ← Правильно: Series -> добавляется объект, не строка
             chart.Visible = true;
         }
 
         private void toolStripTextBoxSearch_KhrapkoDD_TextChanged(object sender, EventArgs e)
         {
-            string term = toolStripTextBoxSearch_KhrapkoDD.Text.Trim().ToLower();
-            var filtered = _dataService.LoadPcs()
-                .Where(p => p.Manufacturer.ToLower().Contains(term) || p.CpuType.ToLower().Contains(term))
-                .ToList();
-            bindingSourcePCs_KhrapkoDD.DataSource = filtered;
-            bindingSourcePCs_KhrapkoDD.ResetBindings(false);
+
         }
 
         private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e) => new AboutForm_KhrapkoDD().ShowDialog();

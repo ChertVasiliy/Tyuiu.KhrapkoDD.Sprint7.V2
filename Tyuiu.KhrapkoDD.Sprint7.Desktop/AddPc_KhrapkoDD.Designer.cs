@@ -20,6 +20,7 @@
             dateTimePickerRel_KhrapkoDD = new DateTimePicker();
             buttonSave_KhrapkoDD = new Button();
             buttonCancel_KhrapkoDD = new Button();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDownFreq_KhrapkoDD).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownRam_KhrapkoDD).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownHdd_KhrapkoDD).BeginInit();
@@ -69,23 +70,35 @@
             // 
             // buttonSave_KhrapkoDD
             // 
-            buttonSave_KhrapkoDD.Location = new Point(298, 217);
+            buttonSave_KhrapkoDD.Location = new Point(298, 207);
             buttonSave_KhrapkoDD.Name = "buttonSave_KhrapkoDD";
-            buttonSave_KhrapkoDD.Size = new Size(75, 23);
+            buttonSave_KhrapkoDD.Size = new Size(75, 33);
             buttonSave_KhrapkoDD.TabIndex = 6;
+            buttonSave_KhrapkoDD.Text = "сохр";
             buttonSave_KhrapkoDD.Click += buttonSave_KhrapkoDD_Click;
             // 
             // buttonCancel_KhrapkoDD
             // 
-            buttonCancel_KhrapkoDD.Location = new Point(217, 217);
+            buttonCancel_KhrapkoDD.Location = new Point(217, 207);
             buttonCancel_KhrapkoDD.Name = "buttonCancel_KhrapkoDD";
-            buttonCancel_KhrapkoDD.Size = new Size(75, 23);
+            buttonCancel_KhrapkoDD.Size = new Size(75, 33);
             buttonCancel_KhrapkoDD.TabIndex = 7;
+            buttonCancel_KhrapkoDD.Text = "выход";
             buttonCancel_KhrapkoDD.Click += buttonCancel_KhrapkoDD_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(225, 17);
+            label1.Name = "label1";
+            label1.Size = new Size(93, 120);
+            label1.TabIndex = 8;
+            label1.Text = "дата сборки\r\nhdd\r\nRam\r\nназв проц\r\nГЦ\r\nпроизв";
             // 
             // AddPcForm_KhrapkoDD
             // 
             ClientSize = new Size(385, 244);
+            Controls.Add(label1);
             Controls.Add(textBoxManufacturer_KhrapkoDD);
             Controls.Add(textBoxCpuType_KhrapkoDD);
             Controls.Add(numericUpDownFreq_KhrapkoDD);
@@ -112,5 +125,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerRel_KhrapkoDD;
         private System.Windows.Forms.Button buttonSave_KhrapkoDD;
         private System.Windows.Forms.Button buttonCancel_KhrapkoDD;
+        private Label label1;
     }
 }
