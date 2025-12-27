@@ -21,7 +21,7 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
             toolStripButtonDelete_KhrapkoDD.ToolTipText = "Удалить запись";
             toolStripButtonStats_KhrapkoDD.ToolTipText = "Показать статистику";
             toolStripButtonChart_KhrapkoDD.ToolTipText = "Показать гистограмму ОЗУ";
-            
+            this.dataGridViewPCs_KhrapkoDD.DataSource = this.bindingSourcePCs_KhrapkoDD;
 
             LoadDataToGrid_KhrapkoDD();
         }
@@ -29,8 +29,9 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
         private void LoadDataToGrid_KhrapkoDD()
         {
             var pcs = _dataService.LoadPcs();
-           
-           
+            bindingSourcePCs_KhrapkoDD.DataSource = pcs;
+            dataGridViewPCs_KhrapkoDD.DataSource = bindingSourcePCs_KhrapkoDD; // ← Это нужно!
+
             // dataGridViewPCs_KhrapkoDD.DataSource = bindingSourcePCs_KhrapkoDD;
 
             // СЧЁТЧИК ЗАПИСЕЙ: пока выводим в заголовок, так как StatusLabel отсутствует
