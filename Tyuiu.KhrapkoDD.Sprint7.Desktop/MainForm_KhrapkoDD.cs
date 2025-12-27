@@ -21,7 +21,7 @@ namespace Tyuiu.KhrapkoDD.Sprint7.Desktop
             toolStripButtonDelete_KhrapkoDD.ToolTipText = "Удалить запись";
             toolStripButtonStats_KhrapkoDD.ToolTipText = "Показать статистику";
             toolStripButtonChart_KhrapkoDD.ToolTipText = "Показать гистограмму ОЗУ";
-            toolStripTextBoxSearch_KhrapkoDD.ToolTipText = "Поиск по производителю или CPU";
+            
 
             LoadDataToGrid_KhrapkoDD();
         }
